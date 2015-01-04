@@ -48,7 +48,7 @@ def chapter_page(cid):
         return dict(
                 book=book,
                 chapter=chapter,
-                context=[p.text for p in p_list],
+                context=[p.text.replace(u'\u3000',' ') for p in p_list],
                 )
 def book_page(bid):
         soup=BeautifulSoup.BeautifulSoup(urlopen("http://lknovel.lightnovel.cn/main/book/%s.html"%bid))
@@ -76,12 +76,15 @@ def to_txt(bd,path="",encoding="UTF-8"):
 def main():
         parse=optparse.OptionParser()
         parse.add_option("--path","-p",default="")
+	parse.add_option("--yaml","-y",action="store_true")
         options,arguments=parse.parse_args()
-        if not os.path.exists(options.path):
+        if not os.path.exists(options.path) and options.path is not '':
                 os.mkdir(options.path)
+        print repr(options.yaml)
         for i in arguments:
                 bd=book_page(re.search(ur"(\/)?(\d+)(\.html)?",i).group(2))
-                to_yaml(bd,options.path)
+                if options.yaml:
+                        to_yaml(bd,options.path)
                 to_txt(bd,options.path)
 
 if __name__=='__main__':
