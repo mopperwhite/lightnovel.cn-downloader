@@ -111,9 +111,9 @@ def get_books_from_search(key_word,url_encoding='UTF-8'):
 def main():
         parse=optparse.OptionParser("[options] [book id list]")
         parse.add_option("--path","-p",default=None,help="Set output path.")
-	parse.add_option("--yaml","-y",action="store_true",default=False,help="Store informations in yaml.")
-	parse.add_option("--all","-a",default='',type="string",help="Search by the given keyword and download all the results.")
-	parse.add_option("--comments","-c",action="store_true",default=False,help="Output with comments.")
+        parse.add_option("--yaml","-y",action="store_true",default=False,help="Store informations in yaml.")
+        parse.add_option("--all","-a",default='',type="string",help="Search by the given keyword and download all the results.")
+        parse.add_option("--comments","-c",action="store_true",default=False,help="Output with comments.")
         #TODO yaml2txt
         options,arguments=parse.parse_args()
         if not os.path.exists(options.path) and options.path:
